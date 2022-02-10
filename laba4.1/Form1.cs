@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Newtonsoft.Json;
+using System.IO;
 namespace laba4._1
 {
 
@@ -15,14 +16,14 @@ namespace laba4._1
     {
         public class CCircle
         {
-            int _x, _y, _radius;
-            private bool _selected;
-            System.Windows.Forms.Button circle = new System.Windows.Forms.Button();
+            public int _x, _y, _radius;
+            public bool _selected;
+            public System.Windows.Forms.Button circle = new System.Windows.Forms.Button();
             //public System.Windows.Forms.MouseEventHandler click_circle;
 
             public CCircle()
             {
-                _x = 0; _y = 0; _radius = 0;
+                _x = 10; _y = 10; _radius = 30;
                 circle.Width = 60;
                 circle.Height = 60;
                 circle.FlatStyle = FlatStyle.Flat;
@@ -103,7 +104,7 @@ namespace laba4._1
             public void add(int x, int y)
             {
                 int i = 0;
-                while (i <_size && massive[i] != null)
+                while (i < _size && massive[i] != null)
                 {
                     i++;
                 }
@@ -129,7 +130,7 @@ namespace laba4._1
             public void select_clear()
             {
                 int i = 0;
-                while(i < _size)
+                while (i < _size)
                 {
                     if (massive[i] != null)
                     {
@@ -142,12 +143,12 @@ namespace laba4._1
             {
                 int i = 0;
                 int k = 0;
-                while (i<_size)
+                while (i < _size)
                 {
                     if (massive[i] != null && massive[i].select())
                     {
-                            massive[i] = null;
-                            k++;
+                        massive[i] = null;
+                        k++;
                     }
                     i++;
                 }
@@ -173,7 +174,7 @@ namespace laba4._1
             }
         }
         Storage storage = new Storage();
-//        int i = 0;
+        //int i = 0;
         public Form1()
         {
             InitializeComponent();
@@ -225,6 +226,19 @@ namespace laba4._1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            storage = File.Exists("save.json") ? JsonConvert.DeserializeObject<Storage>(File.ReadAllText("save.json")) : new Storage();
+            int size = storage.size();
+            int k = 0;
+            while (k < size)
+            {
+                if (storage.get(k)!=null) {
+                System.Windows.Forms.Button circle = storage.get(k).inside();
+                circle.MouseClick += select_circle;
+                circle.KeyDown += del_selected_circle;
+                circle.KeyDown += save_storage;
+            }
+                k++;
+            }
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -236,6 +250,7 @@ namespace laba4._1
             {
                 circle.inside().MouseClick += select_circle;
                 circle.inside().KeyDown += del_selected_circle;
+                circle.inside().KeyDown += save_storage;
                 this.Controls.Add(circle.inside());
 //                label1.Text = i.ToString();
                 storage.select_clear();
@@ -280,10 +295,20 @@ namespace laba4._1
                     }
                     k++;
                 }
+                    storage.del_selected();
 //                i = i - storage.del_selected();
 //                label1.Text = i.ToString();
                 }
             }
+        }
+        private void save_storage(object sender, EventArgs e)
+        {
+            File.WriteAllText("save.json", JsonConvert.SerializeObject(storage, Formatting.Indented,
+new JsonSerializerSettings
+{
+    PreserveReferencesHandling = PreserveReferencesHandling.Objects
+}
+));
         }
 
         private void paint(object sender, EventArgs e)
@@ -299,6 +324,7 @@ namespace laba4._1
                 {
                     Controls.Add(circle.inside());
                 }
+                k++;
             }
         }
 

@@ -9,3 +9,6 @@ C:\Users\suisideboy\source\repos\laba4.1\laba4.1\obj\Debug\laba4.1.csproj.Genera
 C:\Users\suisideboy\source\repos\laba4.1\laba4.1\obj\Debug\laba4.1.csproj.CoreCompileInputs.cache
 C:\Users\suisideboy\source\repos\laba4.1\laba4.1\obj\Debug\laba4.1.exe
 C:\Users\suisideboy\source\repos\laba4.1\laba4.1\obj\Debug\laba4.1.pdb
+C:\Users\suisideboy\source\repos\laba4.1\laba4.1\bin\Debug\Newtonsoft.Json.dll
+C:\Users\suisideboy\source\repos\laba4.1\laba4.1\bin\Debug\Newtonsoft.Json.xml
+C:\Users\suisideboy\source\repos\laba4.1\laba4.1\obj\Debug\laba4.1.csproj.CopyComplete
