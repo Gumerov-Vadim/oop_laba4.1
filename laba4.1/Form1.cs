@@ -244,42 +244,48 @@ namespace laba4._1
         }
         private void select_circle(object sender, MouseEventArgs e)
         {
-            int k = 0;
             CCircle circle = null;
+            int k = 0;
             int size = storage.size();
             while (k < size)
             {
-                if(storage.get(k) == null) { 
-                
-                }
-                else
+                if (storage.get(k) != null && sender == storage.get(k).inside())
                 {
-                    if(sender == storage.get(k).inside())
-                    {
-                        circle = storage.get(k);
-                        circle.select(!circle.select());
-                    }
+                    circle = storage.get(k);
                 }
                 k++;
+            }
+            if (Control.ModifierKeys == Keys.Control)
+            {
+                circle.select(!circle.select());
+            }
+            else
+            {
+                storage.select_clear();
+                circle.select(true);
             }
         }
         private void del_selected_circle(object sender, KeyEventArgs e)
         {
-            CCircle circle = null;
-            int k = 0;
-            int size = storage.size();
-            while(k<size)
-            {
-                circle = storage.get(k);
-                if (circle!=null&&circle.select())
+            if (e.KeyCode == Keys.Delete) {  {
+                CCircle circle = null;
+                int k = 0;
+                int size = storage.size();
+                while (k < size)
                 {
-                    Controls.Remove(circle.inside());
+                    circle = storage.get(k);
+                    if (circle != null && circle.select())
+                    {
+                        Controls.Remove(circle.inside());
+                    }
+                    k++;
                 }
-                k++;
+                i = i - storage.del_selected();
+                label1.Text = i.ToString();
+                }
             }
-            i = i - storage.del_selected();
-            label1.Text = i.ToString();
         }
+
         private void paint(object sender, EventArgs e)
         {
             int size = storage.size();
