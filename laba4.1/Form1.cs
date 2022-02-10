@@ -126,6 +126,18 @@ namespace laba4._1
                     massive[i].inside().Name = (i).ToString();
                 }
             }
+            public void select_clear()
+            {
+                int i = 0;
+                while(i < _size)
+                {
+                    if (massive[i] != null)
+                    {
+                        massive[i].select(false);
+                    }
+                    i++;
+                }
+            }
             public int del_selected()
             {
                 int i = 0;
@@ -226,6 +238,8 @@ namespace laba4._1
                 circle.inside().KeyDown += del_selected_circle;
                 this.Controls.Add(circle.inside());
                 label1.Text = i.ToString();
+                storage.select_clear();
+                circle.select(true);
             }
         }
         private void select_circle(object sender, MouseEventArgs e)
