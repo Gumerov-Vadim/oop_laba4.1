@@ -173,7 +173,7 @@ namespace laba4._1
             }
         }
         Storage storage = new Storage();
-        int i = 0;
+//        int i = 0;
         public Form1()
         {
             InitializeComponent();
@@ -229,7 +229,7 @@ namespace laba4._1
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-            i++;
+//            i++;
             CCircle circle = new CCircle(e.X, e.Y);
             storage.add(circle);
             if (circle != null)
@@ -237,7 +237,7 @@ namespace laba4._1
                 circle.inside().MouseClick += select_circle;
                 circle.inside().KeyDown += del_selected_circle;
                 this.Controls.Add(circle.inside());
-                label1.Text = i.ToString();
+//                label1.Text = i.ToString();
                 storage.select_clear();
                 circle.select(true);
             }
@@ -280,8 +280,8 @@ namespace laba4._1
                     }
                     k++;
                 }
-                i = i - storage.del_selected();
-                label1.Text = i.ToString();
+//                i = i - storage.del_selected();
+//                label1.Text = i.ToString();
                 }
             }
         }
